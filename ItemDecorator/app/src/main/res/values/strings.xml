@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ItemDecorator</string>
+    <string name="top">Top</string>
+    <string name="middle">Middle</string>
+    <string name="bottom">Bottom</string>
+</resources>
