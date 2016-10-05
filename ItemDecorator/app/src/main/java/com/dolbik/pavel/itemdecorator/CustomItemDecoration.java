@@ -20,9 +20,6 @@ public class CustomItemDecoration extends RecyclerView.ItemDecoration {
     private int      endOffsetPx;
 
 
-    public CustomItemDecoration() {}
-
-
     /** @param divider Разделитель который будет нарисован в RecyclerView. <br>
      *  A divider to be drawn on the RecyclerView. */
     public CustomItemDecoration(Drawable divider) {

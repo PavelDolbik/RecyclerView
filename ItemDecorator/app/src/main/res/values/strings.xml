@@ -3,4 +3,6 @@
     <string name="top">Top</string>
     <string name="middle">Middle</string>
     <string name="bottom">Bottom</string>
+    <string name="header">Header</string>
+    <string name="header_view">Header View</string>
 </resources>

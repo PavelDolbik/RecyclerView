@@ -14,27 +14,34 @@
         />
 
     <CheckBox
-        android:id="@+id/checkBox3"
-        android:text="@string/bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        />
-
-    <CheckBox
         android:id="@+id/checkBox2"
         android:text="@string/middle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/checkBox1"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:text="@string/bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBox2"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:text="@string/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBox3"
         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/checkBox2"
+        android:layout_below="@+id/checkBox4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         />
