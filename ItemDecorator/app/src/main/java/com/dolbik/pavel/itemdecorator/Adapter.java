@@ -1,5 +1,6 @@
 package com.dolbik.pavel.itemdecorator;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<String> data;
+    private boolean showParallax;
 
 
     public Adapter(ArrayList<String> data) {
@@ -39,6 +41,12 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.textView.setText(data.get(position));
+
+        if (position == 5 && showParallax) {
+            viewHolder.textView.setBackgroundColor(Color.TRANSPARENT);
+        } else {
+            viewHolder.textView.setBackgroundColor(Color.WHITE);
+        }
     }
 
 
@@ -49,5 +57,9 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             return data.size();
         }
+    }
+
+    public void setShowParallax(boolean showParallax) {
+        this.showParallax = showParallax;
     }
 }

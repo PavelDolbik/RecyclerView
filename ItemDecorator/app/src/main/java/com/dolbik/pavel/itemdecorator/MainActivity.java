@@ -15,28 +15,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CheckBox             middle;
     private CheckBox             bottom;
     private CheckBox             header;
+    private CheckBox             parallax;
     private RecyclerView         list;
     private Adapter              adapter;
     private CustomItemDecoration decoration;
     private HeaderDecoration     headerDecoration;
+    private ParallaxDecoration   parallaxDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        top    = (CheckBox)     findViewById(R.id.checkBox1);
-        middle = (CheckBox)     findViewById(R.id.checkBox2);
-        bottom = (CheckBox)     findViewById(R.id.checkBox3);
-        header = (CheckBox)     findViewById(R.id.checkBox4);
+
+        top      = (CheckBox) findViewById(R.id.checkBox1);
+        middle   = (CheckBox) findViewById(R.id.checkBox2);
+        bottom   = (CheckBox) findViewById(R.id.checkBox3);
+        header   = (CheckBox) findViewById(R.id.checkBox4);
+        parallax = (CheckBox) findViewById(R.id.checkBox5);
         top.setOnClickListener(this);
         middle.setOnClickListener(this);
         bottom.setOnClickListener(this);
         header.setOnClickListener(this);
+        parallax.setOnClickListener(this);
 
 
         ArrayList<String> data = new ArrayList<>();
         for (int i = 0; i < 50; i++ ) { data.add("Item "+i); }
+
 
         list = (RecyclerView) findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(this));
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.setAdapter(adapter);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.checkBox2:
             case R.id.checkBox3:
             case R.id.checkBox4:
+            case R.id.checkBox5:
                 checkSelection();
                 break;
         }
@@ -85,9 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         if (header.isChecked()) {
-            if (headerDecoration != null) {
-                list.removeItemDecoration(headerDecoration);
-            }
+            if (headerDecoration != null) { list.removeItemDecoration(headerDecoration); }
             headerDecoration = HeaderDecoration
                     .with(list)
                     .inflate(R.layout.header_view)
@@ -95,9 +101,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .build();
             list.addItemDecoration(headerDecoration);
         } else {
-            if (headerDecoration != null) {
-                list.removeItemDecoration(headerDecoration);
-            }
+            if (headerDecoration != null) { list.removeItemDecoration(headerDecoration); }
+        }
+
+
+        if (parallax.isChecked()) {
+            adapter.setShowParallax(true);
+            if (parallaxDecoration != null) { list.removeItemDecoration(parallaxDecoration);}
+            parallaxDecoration = new ParallaxDecoration(this, R.drawable.night_png);
+            list.addItemDecoration(parallaxDecoration);
+            adapter.notifyDataSetChanged();
+        } else {
+            adapter.setShowParallax(false);
+            if (parallaxDecoration !=  null) {list.removeItemDecoration(parallaxDecoration); }
+            adapter.notifyDataSetChanged();
         }
 
 
@@ -107,9 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 decoration = null;
             }
         } else {
-            if (decoration != null) {
-                list.removeItemDecoration(decoration);
-            }
+            if (decoration != null) { list.removeItemDecoration(decoration); }
             decoration = new CustomItemDecoration(this, divider, startOffset, endOffset);
             list.addItemDecoration(decoration);
         }
