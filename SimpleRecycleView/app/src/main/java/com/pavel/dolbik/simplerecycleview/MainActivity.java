@@ -8,41 +8,34 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements Adapter.OnItemClickListener{
 
-    private String[]                   data;
-    private RecyclerView               recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private Adapter                    adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        data = getData();
-
-        recyclerView = (RecyclerView) findViewById(R.id.list);
-        // если мы уверены, что изменения в контенте не изменят размер layout-а RecyclerView
-        // передаем параметр true - это увеличивает производительность
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new Adapter(data);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        Adapter adapter = new Adapter(getData());
         adapter.setOnItemClickListener(this);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
+
 
     private String[] getData() {
         String[] data = new String[100];
         for (int i = 0; i < 100; i++) {
-            data[i] = "item "+i;;
+            data[i] = "item "+i;
         }
         return data;
     }
 
+
     @Override
-    public void onItemClick(Adapter.ViewHolder item, int position) {
-        Toast.makeText(this, "Position "+position+" "+data[position], Toast.LENGTH_SHORT).show();
+    public void onItemClick(String item) {
+        Toast.makeText(this, "Item - "+item, Toast.LENGTH_SHORT).show();
     }
 }
