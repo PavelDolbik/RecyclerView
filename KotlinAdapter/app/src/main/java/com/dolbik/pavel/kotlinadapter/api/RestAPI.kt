@@ -3,9 +3,9 @@ package com.dolbik.pavel.kotlinadapter.api
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import rx.Observable
+import rx.Single
 
-class RestAPI() {
+class RestAPI {
 
     private val redditApi: RedditApi
 
@@ -21,7 +21,7 @@ class RestAPI() {
     }
 
 
-    fun getNews(after: String, limit: String) : Observable<RedditNewsResponse> {
+    fun getNews(after: String, limit: String) : Single<RedditNewsResponse> {
         return redditApi.getTop(after, limit)
     }
 

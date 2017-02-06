@@ -3,11 +3,11 @@ package com.dolbik.pavel.kotlinadapter.mvp
 import com.dolbik.pavel.kotlinadapter.api.RestAPI
 import com.dolbik.pavel.kotlinadapter.common.News
 import com.dolbik.pavel.kotlinadapter.common.NewsItem
-import rx.Observable
+import rx.Single
 
 class NewsManager(private val api: RestAPI = RestAPI()) {
 
-    fun getNews(after: String, limit: String = "10") : Observable<News> {
+    fun getNews(after: String, limit: String = "10") : Single<News> {
         return api.getNews(after, limit).map({ response ->
             val dataResponse = response.data
             val news = dataResponse.children.map {

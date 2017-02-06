@@ -3,7 +3,7 @@ package com.dolbik.pavel.kotlinadapter.mvp
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.dolbik.pavel.kotlinadapter.common.News
-import rx.Subscriber
+import rx.SingleSubscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
@@ -27,16 +27,15 @@ class MainPresenter : MvpPresenter<MainView>() {
         val sbs = newsManager.getNews(news?.after ?: "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<News>(){
-
-                    override fun onNext(data: News) {
-                        news = data
-                        viewState.setData(data.news)
+                .subscribe(object : SingleSubscriber<News>(){
+                    override fun onSuccess(value: News) {
+                        news = value
+                        viewState.setData(value.news)
                     }
 
-                    override fun onCompleted() { }
-
-                    override fun onError(e: Throwable) { e.printStackTrace() }
+                    override fun onError(error: Throwable) {
+                        error.printStackTrace()
+                    }
                 })
         compositeSbs.add(sbs)
     }
