@@ -2,6 +2,7 @@ package com.dolbik.pavel.kotlinadapter.adapters
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import com.dolbik.pavel.kotlinadapter.common.AdapterConstant
 import com.dolbik.pavel.kotlinadapter.common.NewsItem
@@ -9,7 +10,7 @@ import com.dolbik.pavel.kotlinadapter.common.ViewType
 import com.dolbik.pavel.kotlinadapter.common.ViewTypeDelegateAdapter
 import java.util.*
 
-class MainAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnClick {
 
     /** Коллекция содержит списов объектов ViewType.
      *  Collections contains the list of ViewType objects. */
@@ -30,8 +31,10 @@ class MainAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     init {
         items = ArrayList()
         items.add(loadingItem)
+        val newsAdapter = NewsDelegateAdapter()
+        newsAdapter.setOnClick(this)
         delegateAdapters.put(AdapterConstant.LOADING, LoadingDelegateAdapter())
-        delegateAdapters.put(AdapterConstant.NEWS, NewsDelegateAdapter())
+        delegateAdapters.put(AdapterConstant.NEWS,    newsAdapter)
     }
 
 
@@ -63,5 +66,13 @@ class MainAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         items.addAll(news)
         items.add(loadingItem)
         notifyItemRangeChanged(initPosition, items.size +1)
+    }
+
+
+    override fun onClickPosition(position: Int) {
+        val item = items[position]
+        when(item) {
+            is NewsItem -> Log.d("Pasha", "Click position $position ${item.author}")
+        }
     }
 }
