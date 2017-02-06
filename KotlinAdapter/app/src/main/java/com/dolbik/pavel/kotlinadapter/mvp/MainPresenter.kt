@@ -2,7 +2,6 @@ package com.dolbik.pavel.kotlinadapter.mvp
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.dolbik.pavel.kotlinadapter.mvp.NewsManager
 import com.dolbik.pavel.kotlinadapter.common.News
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
